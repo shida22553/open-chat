@@ -1,5 +1,5 @@
 require: rubocop-rails
-Documentation:
+Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
