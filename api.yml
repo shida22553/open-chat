@@ -29,8 +29,39 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /rooms:
+    get:
+      summary: get rooms
+      operationId: get_rooms
+      tags:
+        - rooms
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Room"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
+    Room:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
     Error:
       required:
         - code
