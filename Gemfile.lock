@@ -88,6 +88,8 @@ GEM
       activesupport (>= 5.0)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    jbuilder (2.11.2)
+      activesupport (>= 5.0.0)
     json_schema (0.21.0)
     kaminari (1.2.1)
       activesupport (>= 4.1.0)
@@ -223,6 +225,7 @@ DEPENDENCIES
   byebug
   committee-rails
   factory_bot_rails
+  jbuilder (~> 2.7)
   kaminari
   listen (~> 3.3)
   pg (~> 1.1)
