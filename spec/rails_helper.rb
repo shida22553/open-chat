@@ -61,4 +61,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  config.add_setting :committee_options
+  config.include Committee::Rails::Test::Methods
+  config.committee_options = {
+    schema_path: Rails.root.join('api.yml').to_s,
+    parse_response_by_content_type: false,
+    prefix: '/v1'
+  }
 end

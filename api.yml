@@ -1,0 +1,43 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: open-chat
+servers:
+  - url: http://0.0.0.0:3000/v1
+paths:
+  /users/hash:
+    get:
+      summary: get hash
+      operationId: get_users_hash
+      tags:
+        - users
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - hash
+                properties:
+                  hash:
+                    type: string
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
