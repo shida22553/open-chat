@@ -169,6 +169,7 @@ components:
         - user_name
         - user_id
         - content
+        - created_at
       properties:
         id:
           type: integer
@@ -177,6 +178,8 @@ components:
         user_name:
           type: string
         content:
+          type: string
+        created_at:
           type: string
     MessageParam:
       type: object
