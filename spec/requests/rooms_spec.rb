@@ -16,4 +16,16 @@ RSpec.describe 'Rooms', type: :request do
       assert_response_schema_confirm(200)
     end
   end
+
+  describe 'POST /rooms' do
+    it 'responds 200.' do
+      post v1_rooms_path, headers: headers, params: { name: 'name' }.to_json
+      assert_response_schema_confirm(200)
+    end
+
+    it 'responds 400 when the params are incorrect.' do
+      post v1_rooms_path, headers: headers, params: { name: '' }.to_json
+      assert_response_schema_confirm(400)
+    end
+  end
 end
