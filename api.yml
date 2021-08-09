@@ -60,6 +60,8 @@ paths:
           application/json:
             schema:
               type: object
+              required:
+                - name
               properties:
                 name:
                   type: string
@@ -70,6 +72,78 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Room"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /rooms/{room_id}/messages:
+    get:
+      summary: get room messages
+      operationId: get_room_messages
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: room_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the room
+        - in: query
+          name: prev_message_id
+          schema:
+            type: integer
+          required: false
+          description: Numeric ID of the last message
+        - in: query
+          name: next_message_id
+          schema:
+            type: integer
+          required: false
+          description: Numeric ID of the following message
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Message"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: create room messages
+      operationId: post_room_messages
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: room_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/MessageParam"
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
         default:
           description: unexpected error
           content:
@@ -87,6 +161,38 @@ components:
         id:
           type: integer
         name:
+          type: string
+    Message:
+      type: object
+      required:
+        - id
+        - user_name
+        - user_id
+        - content
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: string
+        user_name:
+          type: string
+        content:
+          type: string
+    MessageParam:
+      type: object
+      required:
+        - user_id
+        - user_name
+        - content
+        - content_type
+      properties:
+        user_id:
+          type: string
+        user_name:
+          type: string
+        content:
+          type: string
+        content_type:
           type: string
     Error:
       required:

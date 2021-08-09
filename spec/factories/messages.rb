@@ -4,6 +4,6 @@ FactoryBot.define do
     user_name { 'MyString' }
     user_id { 'MyString' }
     content { 'MyText' }
-    type { 1 }
+    content_type { 0 }
   end
 end

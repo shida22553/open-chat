@@ -4,9 +4,9 @@ class Message < ApplicationRecord
   validates :user_id, presence: true
   validates :user_name, presence: true
   validates :content, presence: true
-  validates :type, presence: true
+  validates :content_type, presence: true
 
-  enum types: {
+  enum content_types: {
     text: 0,
     sticker: 1
   }, _prefix: true

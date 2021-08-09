@@ -1,9 +1,8 @@
 module V1
   class RoomsController < ApplicationController
-    PER = 30
+    LIMIT = 100
     def index
-      page = params[:page] || 1
-      @rooms = Room.all.page(page).per(PER)
+      @rooms = Room.last(LIMIT)
     end
 
     def create
