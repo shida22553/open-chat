@@ -19,7 +19,6 @@ jobs:
           name: Rubocop
           command: bundle exec rubocop
       - run: bundle update rake
-      - run: bundle exec rake db:create RAILS_ENV=test
       - run: bundle exec rake db:schema:load RAILS_ENV=test
       - run:
           name: RSpec
