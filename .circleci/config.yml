@@ -7,6 +7,10 @@ jobs:
   build:
     docker:
       - image: ukwpwrni/open-chat-api:0.0.1
+      - image: circleci/postgres:11.6-alpine
+        name: db
+        environment:
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     executor: ruby/default
     steps:
       - checkout
