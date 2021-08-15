@@ -182,7 +182,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Reaction"
+                $ref: "#/components/schemas/MessageReaction"
         default:
           description: unexpected error
           content:
@@ -229,7 +229,7 @@ components:
         - user_name
         - user_id
         - content
-        - reaction_ids
+        - message_reactions
         - created_at
       properties:
         id:
@@ -238,10 +238,10 @@ components:
           type: string
         user_name:
           type: string
-        reaction_ids:
+        message_reactions:
           type: array
           items:
-            type: integer
+            $ref: "#/components/schemas/MessageReaction"
         content:
           type: string
         created_at:
@@ -272,6 +272,25 @@ components:
           type: integer
         name:
           type: string
+    MessageReaction:
+      type: object
+      required:
+        - id
+        - user_id
+        - user_name
+        - message_id
+        - reaction
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: string
+        user_name:
+          type: string
+        message_id:
+          type: integer
+        reaction:
+          $ref: "#/components/schemas/Reaction"
     MessageReactionParam:
       type: object
       required:
