@@ -19,7 +19,7 @@ RSpec.describe Message, type: :model do
       expect(message.valid?).to eq(false)
     end
     it 'is valid without type' do
-      message = FactoryBot.build(:message, type: nil)
+      message = FactoryBot.build(:message, content_type: nil)
       expect(message.valid?).to eq(false)
     end
   end

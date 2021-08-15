@@ -118,6 +118,38 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    post:
+      summary: create room messages
+      operationId: post_room_messages
+      tags:
+        - messages
+      parameters:
+        - in: path
+          name: room_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the room
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/MessageParam"
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Message"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /rooms/{room_id}/messages/{message_id}/reactions:
     put:
       summary: put message reaction
@@ -151,38 +183,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Reaction"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-    post:
-      summary: create room messages
-      operationId: post_room_messages
-      tags:
-        - messages
-      parameters:
-        - in: path
-          name: room_id
-          schema:
-            type: integer
-          required: true
-          description: Numeric ID of the room
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: "#/components/schemas/MessageParam"
-      responses:
-        '200':
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Message"
         default:
           description: unexpected error
           content:
@@ -229,6 +229,7 @@ components:
         - user_name
         - user_id
         - content
+        - reaction_ids
         - created_at
       properties:
         id:
@@ -237,6 +238,10 @@ components:
           type: string
         user_name:
           type: string
+        reaction_ids:
+          type: array
+          items:
+            type: integer
         content:
           type: string
         created_at:
