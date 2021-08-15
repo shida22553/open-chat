@@ -1,1 +1,1 @@
-json.partial! 'v1/reactions/reaction', reaction: @reaction
+json.partial! 'message_reaction', message_reaction: @message_reaction

@@ -3,7 +3,7 @@ module V1
     LIMIT = 10
     # rubocop:disable Metrics/AbcSize
     def index
-      @messages = Message.includes(:message_reactions).where(room_id: params[:room_id]).order(id: :desc)
+      @messages = Message.includes(message_reactions: :reaction).where(room_id: params[:room_id]).order(id: :desc)
       @messages = @messages.where('id > ?', params[:prev_message_id]) if params[:prev_message_id].present?
       @messages = @messages.where('id < ?', params[:next_message_id]) if params[:next_message_id].present?
       @messages = @messages.limit(LIMIT)
@@ -20,9 +20,11 @@ module V1
 
     def send_reaction
       message = Message.find(params[:message_id])
-      message_reaction = message.message_reactions.find_or_initialize_by(reaction_id: params[:reaction_id])
+      message_reaction = message.message_reactions.find_or_initialize_by(
+        user_id: params[:user_id], user_name: params[:user_name], reaction_id: params[:reaction_id]
+      )
       message_reaction.save!
-      @reaction = message_reaction.reaction
+      @message_reaction = message_reaction
     end
 
     private
