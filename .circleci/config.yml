@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       - image: ukwpwrni/open-chat-api:0.0.1
-      - image: circleci/postgres:11.6-alpine
+      - image: postgres:9.6.17
         name: db
         environment:
           POSTGRES_USER: $POSTGRES_USER
