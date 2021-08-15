@@ -150,6 +150,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /reactions:
+    get:
+      summary: get reactions
+      operationId: get_reactions
+      tags:
+        - reactions
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reaction"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Room:
@@ -196,6 +217,16 @@ components:
         content:
           type: string
         content_type:
+          type: string
+    Reaction:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
           type: string
     Error:
       required:

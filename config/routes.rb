@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     resources :rooms, only: %i[index create] do
       resources :messages, only: %i[index create]
     end
+    resources :reactions, only: %i[index]
   end
 end
