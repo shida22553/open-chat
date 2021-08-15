@@ -118,6 +118,45 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+  /rooms/{room_id}/messages/{message_id}/reactions:
+    put:
+      summary: put message reaction
+      operationId: put_message_reaction
+      tags:
+        - reactions
+      parameters:
+        - in: path
+          name: room_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the room
+        - in: path
+          name: message_id
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/MessageReactionParam"
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reaction"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     post:
       summary: create room messages
       operationId: post_room_messages
@@ -228,6 +267,19 @@ components:
           type: integer
         name:
           type: string
+    MessageReactionParam:
+      type: object
+      required:
+        - user_id
+        - user_name
+        - reaction_id
+      properties:
+        user_id:
+          type: string
+        user_name:
+          type: string
+        reaction_id:
+          type: integer
     Error:
       required:
         - code

@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_160400) do
+ActiveRecord::Schema.define(version: 2021_08_15_073244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "message_reactions", force: :cascade do |t|
+    t.string "user_id"
+    t.string "user_name"
+    t.bigint "message_id", null: false
+    t.bigint "reaction_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id"], name: "index_message_reactions_on_message_id"
+    t.index ["reaction_id"], name: "index_message_reactions_on_reaction_id"
+  end
 
   create_table "messages", force: :cascade do |t|
     t.bigint "room_id", null: false
@@ -38,5 +49,7 @@ ActiveRecord::Schema.define(version: 2021_08_09_160400) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "message_reactions", "messages"
+  add_foreign_key "message_reactions", "reactions"
   add_foreign_key "messages", "rooms"
 end

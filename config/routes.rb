@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   namespace :v1 do
     get 'users/hash', to: 'users#create_hash'
     resources :rooms, only: %i[index create] do
-      resources :messages, only: %i[index create]
+      resources :messages, only: %i[index create] do
+        put 'reactions', to: 'messages#send_reaction'
+      end
     end
     resources :reactions, only: %i[index]
   end

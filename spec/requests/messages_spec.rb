@@ -38,4 +38,21 @@ RSpec.describe 'Messages', type: :request do
       assert_response_schema_confirm(400)
     end
   end
+
+  describe 'PUT /:room_id/messages/:message_id/reactions' do
+    let(:message) { FactoryBot.create(:message) }
+    let(:reaction) { FactoryBot.create(:reaction) }
+    let(:params) do
+      {
+        user_id: '12345abcde',
+        user_name: 'Name',
+        reaction_id: reaction.id
+      }
+    end
+    it 'responds 200.' do
+      put v1_room_message_reactions_path(room_id: room.id, message_id: message.id),
+          headers: headers, params: params.to_json
+      assert_response_schema_confirm(200)
+    end
+  end
 end

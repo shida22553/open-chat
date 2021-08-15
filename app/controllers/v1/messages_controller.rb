@@ -16,6 +16,13 @@ module V1
       render json: { code: :bad_request, message: @message.errors.full_messages }, status: :bad_request
     end
 
+    def send_reaction
+      message = Message.find(params[:message_id])
+      message_reaction = message.message_reactions.find_or_initialize_by(reaction_id: params[:reaction_id])
+      message_reaction.save!
+      @reaction = message_reaction.reaction
+    end
+
     private
 
     def message_params
